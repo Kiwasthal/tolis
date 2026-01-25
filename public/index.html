@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thesis Management System</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="app">
+      <!-- Loading Spinner -->
+      <div id="loading" class="loading hidden">
+        <div class="spinner"></div>
+        <p>Loading...</p>
+      </div>
+
+      <!-- Toast Notifications -->
+      <div id="toast-container" class="toast-container"></div>
+
+      <!-- Login Page -->
+      <div id="login-page" class="page">
+        <div class="login-container">
+          <div class="login-card">
+            <div class="login-header">
+              <i class="fas fa-graduation-cap"></i>
+              <h1>Thesis Management System</h1>
+              <p>Course Lab - Academic Year 2024-25</p>
+            </div>
+
+            <form id="login-form" class="login-form">
+              <div class="form-group">
+                <label for="email">
+                  <i class="fas fa-envelope"></i>
+                  Email
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  required
+                  placeholder="Enter your email"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="password">
+                  <i class="fas fa-lock"></i>
+                  Password
+                </label>
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  required
+                  placeholder="Enter your password"
+                />
+              </div>
+
+              <button type="submit" class="login-btn">
+                <i class="fas fa-sign-in-alt"></i>
+                Sign In
+              </button>
+            </form>
+
+            <div class="demo-accounts">
+              <h3>Demo Accounts</h3>
+              <div class="demo-grid">
+                <button
+                  class="demo-btn"
+                  data-email="agis@example.com"
+                  data-password="password123"
+                >
+                  <i class="fas fa-user-graduate"></i>
+                  Student
+                </button>
+                <button
+                  class="demo-btn"
+                  data-email="ioannis.k@uni.edu"
+                  data-password="password123"
+                >
+                  <i class="fas fa-chalkboard-teacher"></i>
+                  Instructor
+                </button>
+                <button
+                  class="demo-btn"
+                  data-email="secretary@uni.edu"
+                  data-password="password123"
+                >
+                  <i class="fas fa-user-tie"></i>
+                  Secretary
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Dashboard -->
+      <div id="dashboard-page" class="page hidden">
+        <!-- Navigation Header -->
+        <header class="navbar">
+          <div class="nav-brand">
+            <i class="fas fa-graduation-cap"></i>
+            <span>Thesis Management</span>
+          </div>
+
+          <nav class="nav-menu">
+            <a href="#" class="nav-link active" data-page="overview">
+              <i class="fas fa-tachometer-alt"></i>
+              <span>Overview</span>
+            </a>
+            <a href="#" class="nav-link" data-page="topics">
+              <i class="fas fa-lightbulb"></i>
+              <span>Topics</span>
+            </a>
+            <a href="#" class="nav-link" data-page="theses">
+              <i class="fas fa-file-alt"></i>
+              <span>Theses</span>
+            </a>
+            <a href="#" class="nav-link" data-page="committees">
+              <i class="fas fa-users"></i>
+              <span>Committees</span>
+            </a>
+            <a href="#" class="nav-link" data-page="presentations">
+              <i class="fas fa-presentation"></i>
+              <span>Presentations</span>
+            </a>
+            <a href="#" class="nav-link" data-page="grades">
+              <i class="fas fa-star"></i>
+              <span>Grades</span>
+            </a>
+            <a href="#" class="nav-link secretary-only" data-page="admin">
+              <i class="fas fa-cog"></i>
+              <span>Admin</span>
+            </a>
+          </nav>
+
+          <div class="nav-user">
+            <div class="user-info">
+              <span id="user-name">Loading...</span>
+              <span id="user-role" class="user-role">...</span>
+            </div>
+            <button id="logout-btn" class="logout-btn">
+              <i class="fas fa-sign-out-alt"></i>
+            </button>
+          </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+          <!-- Overview Page -->
+          <div id="overview-content" class="content-section active">
+            <div class="page-header">
+              <h1>Dashboard Overview</h1>
+              <p>Welcome to your thesis management dashboard</p>
+            </div>
+
+            <div class="stats-grid">
+              <div class="stat-card">
+                <div class="stat-icon">
+                  <i class="fas fa-lightbulb"></i>
+                </div>
+                <div class="stat-content">
+                  <h3 id="total-topics">-</h3>
+                  <p>Available Topics</p>
+                </div>
+              </div>
+
+              <div class="stat-card">
+                <div class="stat-icon">
+                  <i class="fas fa-file-alt"></i>
+                </div>
+                <div class="stat-content">
+                  <h3 id="my-theses">-</h3>
+                  <p>My Theses</p>
+                </div>
+              </div>
+
+              <div class="stat-card">
+                <div class="stat-icon">
+                  <i class="fas fa-users"></i>
+                </div>
+                <div class="stat-content">
+                  <h3 id="committee-count">-</h3>
+                  <p>Committee Roles</p>
+                </div>
+              </div>
+
+              <div class="stat-card">
+                <div class="stat-icon">
+                  <i class="fas fa-star"></i>
+                </div>
+                <div class="stat-content">
+                  <h3 id="grade-average">-</h3>
+                  <p>Average Grade</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="dashboard-grid">
+              <div class="dashboard-card">
+                <div class="card-header">
+                  <h3>Recent Activity</h3>
+                  <i class="fas fa-clock"></i>
+                </div>
+                <div class="card-content">
+                  <div id="recent-activity" class="activity-list">
+                    <div class="loading-placeholder">
+                      Loading recent activity...
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="dashboard-card">
+                <div class="card-header">
+                  <h3>Quick Actions</h3>
+                  <i class="fas fa-bolt"></i>
+                </div>
+                <div class="card-content">
+                  <div class="quick-actions">
+                    <button
+                      class="action-btn student-only"
+                      onclick="showPage('topics')"
+                    >
+                      <i class="fas fa-search"></i>
+                      Browse Topics
+                    </button>
+                    <button
+                      class="action-btn instructor-only"
+                      onclick="createNewTopic()"
+                    >
+                      <i class="fas fa-plus"></i>
+                      Create Topic
+                    </button>
+                    <button
+                      class="action-btn"
+                      onclick="showPage('presentations')"
+                    >
+                      <i class="fas fa-calendar"></i>
+                      View Schedule
+                    </button>
+                    <button
+                      class="action-btn secretary-only"
+                      onclick="showPage('admin')"
+                    >
+                      <i class="fas fa-download"></i>
+                      Export Data
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="dashboard-card student-only">
+                <div class="card-header">
+                  <h3>My Profile</h3>
+                  <i class="fas fa-user"></i>
+                </div>
+                <div class="card-content">
+                  <div id="profile-summary" class="profile-summary">
+                    <div class="loading-placeholder">Loading profile...</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Topics Page -->
+          <div id="topics-content" class="content-section">
+            <div class="page-header">
+              <h1>Research Topics</h1>
+              <div class="page-actions">
+                <button
+                  class="btn btn-primary instructor-only"
+                  onclick="createNewTopic()"
+                >
+                  <i class="fas fa-plus"></i>
+                  Create New Topic
+                </button>
+              </div>
+            </div>
+
+            <div class="content-grid">
+              <div id="topics-list" class="topics-grid">
+                <!-- Topics will be loaded here -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Theses Page -->
+          <div id="theses-content" class="content-section">
+            <div class="page-header">
+              <h1>Thesis Management</h1>
+              <div class="page-actions">
+                <select id="thesis-filter" class="filter-select">
+                  <option value="">All States</option>
+                  <option value="UNDER_ASSIGNMENT">Under Assignment</option>
+                  <option value="ACTIVE">Active</option>
+                  <option value="UNDER_REVIEW">Under Review</option>
+                  <option value="COMPLETED">Completed</option>
+                  <option value="CANCELLED">Cancelled</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="content-grid">
+              <div id="theses-list" class="theses-grid">
+                <!-- Theses will be loaded here -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Other content sections will be added as needed -->
+          <div id="committees-content" class="content-section">
+            <div class="page-header">
+              <h1>Committee Management</h1>
+            </div>
+            <div class="placeholder-content">
+              <i class="fas fa-users fa-3x"></i>
+              <h3>Committee features coming soon</h3>
+              <p>Manage thesis committees and invitations</p>
+            </div>
+          </div>
+
+          <div id="presentations-content" class="content-section">
+            <div class="page-header">
+              <h1>Presentations</h1>
+            </div>
+            <div class="placeholder-content">
+              <i class="fas fa-presentation fa-3x"></i>
+              <h3>Presentation scheduling coming soon</h3>
+              <p>Schedule and manage thesis presentations</p>
+            </div>
+          </div>
+
+          <div id="grades-content" class="content-section">
+            <div class="page-header">
+              <h1>Grading System</h1>
+            </div>
+            <div class="placeholder-content">
+              <i class="fas fa-star fa-3x"></i>
+              <h3>Grading features coming soon</h3>
+              <p>Submit and view thesis grades</p>
+            </div>
+          </div>
+
+          <div id="admin-content" class="content-section secretary-only">
+            <div class="page-header">
+              <h1>System Administration</h1>
+              <div class="page-actions">
+                <button class="btn btn-secondary" onclick="exportTheses()">
+                  <i class="fas fa-download"></i>
+                  Export Theses
+                </button>
+                <button class="btn btn-secondary" onclick="generateReport()">
+                  <i class="fas fa-chart-bar"></i>
+                  Generate Report
+                </button>
+              </div>
+            </div>
+
+            <div class="admin-grid">
+              <div class="admin-card">
+                <h3>System Health</h3>
+                <div id="system-health" class="health-status">
+                  <div class="loading-placeholder">
+                    Loading system status...
+                  </div>
+                </div>
+              </div>
+
+              <div class="admin-card">
+                <h3>Export & Reports</h3>
+                <div class="export-options">
+                  <button class="btn btn-outline" onclick="exportTheses()">
+                    <i class="fas fa-file-export"></i>
+                    Export All Theses
+                  </button>
+                  <button class="btn btn-outline" onclick="generateReport()">
+                    <i class="fas fa-chart-line"></i>
+                    Comprehensive Report
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+
+      <!-- Modals -->
+      <div id="modal-overlay" class="modal-overlay hidden">
+        <div class="modal">
+          <div class="modal-header">
+            <h3 id="modal-title">Modal Title</h3>
+            <button class="modal-close" onclick="closeModal()">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+          <div class="modal-body" id="modal-body">
+            <!-- Modal content will be inserted here -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>

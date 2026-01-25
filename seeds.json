@@ -1,0 +1,214 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "role": "student",
+      "am": "2024001",
+      "full_name": "Agis Ioannou",
+      "email": "agis@example.com",
+      "password_hash": "<pw>"
+    },
+    {
+      "id": 2,
+      "role": "student",
+      "am": "2024002",
+      "full_name": "Maria Kosta",
+      "email": "maria@example.com",
+      "password_hash": "<pw>"
+    },
+    {
+      "id": 3,
+      "role": "student",
+      "am": "2024003",
+      "full_name": "Nikos Pappas",
+      "email": "nikos@example.com",
+      "password_hash": "<pw>"
+    },
+    {
+      "id": 4,
+      "role": "student",
+      "am": "2024004",
+      "full_name": "Eleni Georgiou",
+      "email": "eleni@example.com",
+      "password_hash": "<pw>"
+    },
+    {
+      "id": 5,
+      "role": "student",
+      "am": "2024005",
+      "full_name": "Spiros Vasilis",
+      "email": "spiros@example.com",
+      "password_hash": "<pw>"
+    },
+    {
+      "id": 6,
+      "role": "student",
+      "am": "2024006",
+      "full_name": "Katerina Alexiou",
+      "email": "kate@example.com",
+      "password_hash": "<pw>"
+    },
+    {
+      "id": 7,
+      "role": "student",
+      "am": "2024007",
+      "full_name": "Dimitris Marin",
+      "email": "dimitris@example.com",
+      "password_hash": "<pw>"
+    },
+    {
+      "id": 8,
+      "role": "student",
+      "am": "2024008",
+      "full_name": "Anna Theodorou",
+      "email": "anna@example.com",
+      "password_hash": "<pw>"
+    },
+    {
+      "id": 9,
+      "role": "student",
+      "am": "2024009",
+      "full_name": "Panagiotis L.",
+      "email": "panos@example.com",
+      "password_hash": "<pw>"
+    },
+    {
+      "id": 10,
+      "role": "student",
+      "am": "2024010",
+      "full_name": "Theo F.",
+      "email": "theo@example.com",
+      "password_hash": "<pw>"
+    },
+    {
+      "id": 11,
+      "role": "instructor",
+      "full_name": "Prof. Ioannis K.",
+      "email": "ioannis.k@uni.edu",
+      "password_hash": "<pw>"
+    },
+    {
+      "id": 12,
+      "role": "instructor",
+      "full_name": "Dr. Sofia N.",
+      "email": "sofia.n@uni.edu",
+      "password_hash": "<pw>"
+    },
+    {
+      "id": 13,
+      "role": "instructor",
+      "full_name": "Dr. Petros Z.",
+      "email": "petros.z@uni.edu",
+      "password_hash": "<pw>"
+    },
+    {
+      "id": 14,
+      "role": "instructor",
+      "full_name": "Dr. Elena M.",
+      "email": "elena.m@uni.edu",
+      "password_hash": "<pw>"
+    },
+    {
+      "id": 15,
+      "role": "instructor",
+      "full_name": "Prof. Andreas P.",
+      "email": "andreas.p@uni.edu",
+      "password_hash": "<pw>"
+    },
+    {
+      "id": 16,
+      "role": "secretary",
+      "full_name": "Secretary Office",
+      "email": "secretary@uni.edu",
+      "password_hash": "<pw>"
+    }
+  ],
+  "topics": [
+    {
+      "id": 1,
+      "title": "Audio moment tagging",
+      "summary": "CV+Audio pipeline for tagging moments",
+      "creator_id": 11
+    },
+    {
+      "id": 2,
+      "title": "Music recommendation with embeddings",
+      "summary": "Hybrid recs for short-form audio",
+      "creator_id": 12
+    },
+    {
+      "id": 3,
+      "title": "Efficient DB indexing",
+      "summary": "Indexing strategies for real-time queries",
+      "creator_id": 13
+    },
+    {
+      "id": 4,
+      "title": "Web performance caching",
+      "summary": "Cache-control strategy analysis",
+      "creator_id": 14
+    },
+    {
+      "id": 5,
+      "title": "Privacy-preserving analytics",
+      "summary": "Differential privacy for logs",
+      "creator_id": 15
+    },
+    {
+      "id": 6,
+      "title": "Real-time collaborative editing",
+      "summary": "CRDTs vs OT comparisons",
+      "creator_id": 11
+    },
+    {
+      "id": 7,
+      "title": "Automated unit test generation",
+      "summary": "AI-assisted unit tests",
+      "creator_id": 12
+    },
+    {
+      "id": 8,
+      "title": "Anomaly detection on logs",
+      "summary": "Stream-based anomaly detection",
+      "creator_id": 13
+    }
+  ],
+  "theses": [
+    {
+      "id": 1,
+      "topic_id": 1,
+      "student_id": 1,
+      "supervisor_id": 11,
+      "state": "ACTIVE",
+      "assigned_at": "2025-02-01T10:00:00Z",
+      "started_at": "2025-02-15T09:00:00Z"
+    },
+    {
+      "id": 2,
+      "topic_id": 2,
+      "student_id": 2,
+      "supervisor_id": 12,
+      "state": "UNDER_ASSIGNMENT",
+      "assigned_at": "2025-06-01T12:00:00Z"
+    },
+    {
+      "id": 3,
+      "topic_id": 3,
+      "student_id": 3,
+      "supervisor_id": 13,
+      "state": "UNDER_REVIEW",
+      "assigned_at": "2024-09-15T08:00:00Z",
+      "started_at": "2024-09-20T09:00:00Z"
+    },
+    {
+      "id": 4,
+      "topic_id": 4,
+      "student_id": 4,
+      "supervisor_id": 14,
+      "state": "COMPLETED",
+      "assigned_at": "2023-10-01T09:00:00Z",
+      "started_at": "2023-10-05T09:00:00Z",
+      "finalized_at": "2024-06-20T10:00:00Z"
+    }
+  ]
+}
