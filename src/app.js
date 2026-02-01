@@ -54,15 +54,19 @@ app.use(cors(corsOptions));
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 100, // limit each IP to 100 requests per windowMs
-  message: "Too many requests from this IP, please try again later.",
+  message: { error: "Too many requests from this IP, please try again later." },
+  standardHeaders: true,
+  legacyHeaders: false,
 });
 app.use("/api/", limiter);
 
 // Stricter rate limiting for auth endpoints
 const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 5, // limit each IP to 5 requests per windowMs
-  message: "Too many authentication attempts, please try again later.",
+  max: 10, // limit each IP to 10 login attempts per windowMs
+  message: { error: "Too many authentication attempts, please try again later." },
+  standardHeaders: true,
+  legacyHeaders: false,
 });
 app.use("/api/auth/login", authLimiter);
 
@@ -70,9 +74,56 @@ app.use("/api/auth/login", authLimiter);
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true, limit: "10mb" }));
 
-// Static files
-app.use(express.static(path.join(__dirname, "../public")));
-app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
+// Static files with caching configuration
+// Reference: https://developer.mozilla.org/en-US/docs/Web/HTTP/Caching
+// Reference: https://web.dev/articles/http-cache
+
+// Public assets (CSS, JS, images) - cache for 7 days
+// These files change infrequently and benefit from long cache times
+app.use(
+  express.static(path.join(__dirname, "../public"), {
+    maxAge: "7d", // 7 days for CSS/JS/images
+    etag: true, // Enable ETag for conditional requests
+    lastModified: true, // Enable Last-Modified header
+    setHeaders: (res, filepath) => {
+      // HTML files should not be cached to ensure users get latest version
+      if (filepath.endsWith(".html")) {
+        res.setHeader("Cache-Control", "no-cache, must-revalidate");
+      }
+      // CSS and JS files - immutable when versioned, long cache otherwise
+      else if (filepath.endsWith(".css") || filepath.endsWith(".js")) {
+        res.setHeader("Cache-Control", "public, max-age=604800"); // 7 days
+      }
+      // Images and fonts - can be cached longer
+      else if (
+        filepath.match(/\.(png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot)$/)
+      ) {
+        res.setHeader("Cache-Control", "public, max-age=2592000"); // 30 days
+      }
+    },
+  })
+);
+
+// Uploaded files (thesis documents, PDFs) - cache for 1 day
+// These may be updated by users, so shorter cache time is appropriate
+app.use(
+  "/uploads",
+  express.static(path.join(__dirname, "../uploads"), {
+    maxAge: "1d", // 1 day for uploaded documents
+    etag: true, // Enable ETag for cache validation
+    lastModified: true,
+    setHeaders: (res, filepath) => {
+      // PDF documents
+      if (filepath.endsWith(".pdf")) {
+        res.setHeader("Cache-Control", "public, max-age=86400"); // 1 day
+      }
+      // Word documents and other files
+      else {
+        res.setHeader("Cache-Control", "public, max-age=86400"); // 1 day
+      }
+    },
+  })
+);
 
 // Request logging middleware
 app.use((req, res, next) => {
